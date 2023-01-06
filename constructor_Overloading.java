@@ -1,6 +1,6 @@
 import java.util.Scanner;
 
-public class shapeDemo {
+public class constructor_Overloading {
 
 	public static void main(String[] args) {
 //		Scanner sc=new Scanner(System.in);
