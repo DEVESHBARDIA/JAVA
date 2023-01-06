@@ -1,4 +1,4 @@
-public class addDemo {
+public class method_Overloading {
 
 	public static void main(String[] args) {
 //		Scanner sc=new Scanner(System.in);
