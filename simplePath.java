@@ -6,7 +6,7 @@ import java.util.PriorityQueue;
 public class DijkstraWithTurnsAndNodes {
     static final int INF = Integer.MAX_VALUE;
 
-    public static List<List<Integer>> dijkstra(int[][] graph, int start, int destination) {
+    public static List<Integer> dijkstra(int[][] graph, int start, int destination) {
         int vertices = graph.length;
         int[] dist = new int[vertices];
         Arrays.fill(dist, INF);
@@ -15,7 +15,7 @@ public class DijkstraWithTurnsAndNodes {
         PriorityQueue<Node> minHeap = new PriorityQueue<>();
         minHeap.offer(new Node(start, 0, 0));
 
-        List<List<Integer>> paths = new ArrayList<>();
+        List<Integer> shortestPath = new ArrayList<>();
 
         while (!minHeap.isEmpty()) {
             Node node = minHeap.poll();
@@ -25,6 +25,11 @@ public class DijkstraWithTurnsAndNodes {
 
             if (currentDist > dist[u]) {
                 continue;
+            }
+
+            if (u == destination) {
+                shortestPath.add(u);
+                break;
             }
 
             for (int v = 0; v < vertices; v++) {
@@ -37,22 +42,12 @@ public class DijkstraWithTurnsAndNodes {
                     if (newDist < dist[v] || (newDist == dist[v] && newTurns < turns)) {
                         dist[v] = newDist;
                         minHeap.offer(new Node(v, newDist, newTurns));
-
-                        // Update paths
-                        List<Integer> newPath = new ArrayList<>(paths.get(u));
-                        newPath.add(u);
-                        paths.add(newPath);
                     }
                 }
             }
         }
 
-        // Add the destination node to all paths
-        for (List<Integer> path : paths) {
-            path.add(destination);
-        }
-
-        return paths;
+        return shortestPath;
     }
 
     static class Node implements Comparable<Node> {
@@ -91,15 +86,11 @@ public class DijkstraWithTurnsAndNodes {
         };
 
         int startVertex = 0;
-        int destinationVertex = 5;
+        int destinationVertex = 9;
 
-        List<List<Integer>> paths = dijkstra(graph, startVertex, destinationVertex);
+        List<Integer> shortestPath = dijkstra(graph, startVertex, destinationVertex);
 
-        System.out.println("Paths with the least number of nodes:");
-        for (List<Integer> path : paths) {
-            System.out.println(path);
-        }
+        System.out.println("Shortest path with least nodes:");
+        System.out.println(shortestPath);
     }
 }
-
-
